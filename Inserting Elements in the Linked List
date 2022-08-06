@@ -1,0 +1,93 @@
+// inserting element at starting,middle and end(last)
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* next;
+};
+void insertathead(node* &head,int d)
+{
+    node* temp=new node();
+    temp->data=d;
+    temp->next=head;
+    head=temp;
+}
+
+void insertattail(node* &tail,int d)
+{
+    node* temp=new node();
+    temp->data=d;
+    tail->next=temp;
+    tail=temp;
+}
+void print(node* &head)
+{
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+
+void insertatpos(node* &tail,node* &head,int pos,int d)
+{
+    // insert at start
+    if(pos==1)
+    {
+        insertathead(head,d);
+        return;
+    }
+    
+    node* temp=head;
+    int cnt=1;
+    while(cnt<pos-1)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    
+    node* ins=new node();
+    ins->data=d;
+    ins->next=temp->next;
+    temp->next=ins;
+    
+    // insert at last
+    if(temp->next==NULL)
+    {
+        insertattail(tail,d);
+        return;
+    }
+}
+int main()
+{
+    node* one=new node();
+    one->data=1;
+    one->next=NULL;
+
+    node* head=one;
+    node* tail=one;
+    // print(head);
+    
+    // insertathead(head,0);
+    // print(head);
+    
+    // insertathead(head,-1);
+    // print(head);
+    
+    insertattail(tail,2);
+    // print(head);
+    
+    insertattail(tail,4);
+    // print(head);
+    
+    insertatpos(tail,head,3,5);
+    print(head);
+    
+    cout<<"head : "<<head->data<<endl;
+    cout<<"tail : "<<tail->data<<endl;
+    return 0;
+}
