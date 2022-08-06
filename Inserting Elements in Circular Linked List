@@ -1,0 +1,70 @@
+// inserting a circular linked list 
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* next;
+};
+void insertnode(node* &tail,int element,int d)
+{
+    if(tail==NULL)           // empty list
+    {
+        node* single=new node();
+        single->data=d;
+        tail=single;
+        single->next=single;
+    }
+    else                    // non empty list
+    {
+        node* curr=tail;
+        while(curr->data!=element)
+        {
+            curr=curr->next;
+        }
+        node* temp=new node();
+        temp->data=d;
+        temp->next=curr->next;
+        curr->next=temp;
+    }
+}
+void print(node* tail)
+{
+    node* temp=tail;
+    if(tail==NULL)
+    {
+        cout<<"List is Empty "<<endl;
+        return;
+    }
+    do
+    {
+        cout<<tail->data<<" ";
+        tail=tail->next;
+    }
+    while(tail!=temp);
+    cout<<endl;
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->data=1;
+    one->next=two;
+    
+    two->data=2;
+    two->next=three;
+    
+    three->data=3;
+    three->next=one;
+    
+    node* tail=three;
+    
+    insertnode(tail,3,5);
+    insertnode(tail,5,7);
+    insertnode(tail,5,6);
+    print(tail);
+    return 0;
+}
