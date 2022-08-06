@@ -1,0 +1,89 @@
+// deleting a circular linked list 
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* next;
+    
+    ~node()
+    {
+        int value=this->data;
+        if(this->next!=NULL)
+        {
+            delete next;
+            next=NULL;
+        }
+        cout<<"Memory is free for node with data : "<<value<<endl;
+    }
+};
+void deletenode(node* &tail,int val)
+{
+    if(tail==NULL)                     // empty
+    {
+        cout<<"List is Empty"<<endl;
+        return;
+    }
+    else                               // non empty
+    {
+        node* prev=tail;
+        node* curr=prev->next;
+        while(curr->data!=val)
+        {
+            prev=curr;
+            curr=curr->next;
+        }
+        prev->next=curr->next;
+        // when node is 1
+        if(curr=prev)
+        {
+            tail=NULL;
+        }
+        // when node is>=2
+        else if(tail==curr)
+        {
+            tail=prev;
+        }
+        curr->next=NULL;
+        delete curr;
+    }
+}
+void print(node* tail)
+{
+    node* temp=tail;
+    if(tail==NULL)
+    {
+        cout<<"List is Empty "<<endl;
+        return;
+    }
+    do
+    {
+        cout<<tail->data<<" ";
+        tail=tail->next;
+    }
+    while(tail!=temp);
+    cout<<endl;
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->data=1;
+    one->next=two;
+    
+    two->data=2;
+    two->next=three;
+
+    three->data=3;
+    three->next=one;
+    
+    node* tail=three;
+    
+    print(tail);
+    deletenode(tail,2);
+    print(tail);
+    return 0;
+}
