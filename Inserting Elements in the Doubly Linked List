@@ -10,21 +10,35 @@ class node
 };
 void inserthead(node* &head,int d)
 {
-    node* temp=new node();
-    head->prev=temp;
-    // temp->prev=NULL;
-    temp->data=d;
-    temp->next=head;
-    head=temp;
+    if(head==NULL)
+    {
+        node* temp=new node();
+        head=temp;
+    }
+    else
+    {
+        node* temp=new node();
+        head->prev=temp;
+        temp->data=d;
+        temp->next=head;
+        head=temp;
+    }
 }
 void inserttail(node* tail,int d)
 {
-    node* temp=new node();
-    temp->prev=tail;
-    temp->data=d;
-    tail->next=temp;
-    tail=temp;
-    
+    if(tail==NULL)
+    {
+        node* temp=new node();
+        tail=temp;
+    }
+    else
+    {
+        node* temp=new node();
+        temp->prev=tail;
+        temp->data=d;
+        tail->next=temp;
+        tail=temp;
+    }
 }
 void insertpos(node* &head,node* &tail,int pos,int d)
 {
