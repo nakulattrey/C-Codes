@@ -1,0 +1,42 @@
+// traversing doubly linked list
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* prev;
+    node* next;
+};
+void print(node* &head)
+{
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->prev=NULL;
+    one->data=1;
+    one->next=two;
+    
+    two->prev=one;
+    two->data=2;
+    two->next=three;
+    
+    three->prev=two;
+    three->data=3;
+    three->next=NULL;
+    
+    node* head=one;
+    node* tail=one;
+    print(head);
+    return 0;
+}
