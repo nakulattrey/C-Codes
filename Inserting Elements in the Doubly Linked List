@@ -1,0 +1,90 @@
+// inserting at head,middle,tail(end) of doubly linked list
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* prev;
+    node* next;
+};
+void inserthead(node* &head,int d)
+{
+    node* temp=new node();
+    head->prev=temp;
+    // temp->prev=NULL;
+    temp->data=d;
+    temp->next=head;
+    head=temp;
+}
+void inserttail(node* tail,int d)
+{
+    node* temp=new node();
+    temp->prev=tail;
+    temp->data=d;
+    tail->next=temp;
+    tail=temp;
+    
+}
+void insertpos(node* &head,node* &tail,int pos,int d)
+{
+    if(pos==1)
+    {
+        inserthead(head,d);
+        return;
+    }
+    node* temp=head;
+    int cnt=1;
+    while(cnt<pos-1)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    if(temp->next==NULL)
+    {
+        inserttail(tail,d);
+        return;
+    }
+    node* nodetoinsert=new node();
+    temp->next->prev=nodetoinsert;
+    nodetoinsert->data=d;
+    nodetoinsert->next=temp->next;
+    temp->next=nodetoinsert;
+    nodetoinsert->prev=temp;
+}
+void print(node* &head)
+{
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->prev=NULL;
+    one->data=1;
+    one->next=two;
+    
+    two->prev=one;
+    two->data=2;
+    two->next=three;
+    
+    three->prev=two;
+    three->data=3;
+    three->next=NULL;
+    
+    node* head=one;
+    node* tail=three;
+    
+    inserthead(head,0);
+    inserttail(tail,4);
+    insertpos(head,tail,2,100);
+    print(head);
+    return 0;
+}
