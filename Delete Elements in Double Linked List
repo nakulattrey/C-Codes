@@ -1,0 +1,84 @@
+// deleting at head,middle,tail(end) of doubly linked list
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* prev;
+    node* next;
+    
+    ~node()
+    {
+        int value=this->data;
+        if(next!=NULL)
+        {
+            delete next;
+            next=NULL;
+        }
+        cout<<"Memory free for node with data : "<<value<<endl;
+    }
+};
+void deletenode(node* &head,int pos)
+{
+    if(pos==1)
+    {
+        node* temp=head;
+        temp->next->prev=NULL;
+        head=temp->next;
+        temp->next=NULL;
+        delete temp;
+        return;
+    }
+    node* curr=head;
+    node* prev=NULL;
+    
+    int cnt=1;
+    while(cnt<pos)
+    {
+        prev=curr;
+        curr=curr->next;
+        cnt++;
+    }
+    curr->prev=NULL; 
+    prev->next=curr->next;
+    curr->next=NULL;
+    delete curr;
+    return;
+}
+void print(node* &head)
+{
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->prev=NULL;
+    one->data=1;
+    one->next=two;
+    
+    two->prev=one;
+    two->data=2;
+    two->next=three;
+    
+    three->prev=two;
+    three->data=3;
+    three->next=NULL;
+    
+    node* head=one;
+    node* tail=three;
+    
+    print(head);
+    cout<<endl;
+    deletenode(head,3);
+    print(head);
+    return 0;
+}
