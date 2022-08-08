@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* next;
+};
+void print(node* &head)
+{
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+node* middle(node* &head)
+{
+    if(head==NULL || head->next=NULL)
+    {
+        return head;
+    }
+    if(head->next->next=NULL)
+    {
+        return head->next;
+    }
+    node* fast=head->next;
+    node* slow=head;
+    while(head!=NULL)
+    {
+        fast=fast->next;
+        if(fast->next!=NULL)
+        {
+            fast=fast->next;
+        }
+        slow=slow->next;
+    }
+    return slow;
+}
+node* reverse(node* &head)
+{
+    if(head==NULL || head->next==NULL)
+    {
+        return  head;
+    }
+    node* prev=NULL;
+    node* curr=head;
+    node* frwd=NULL;
+    while(head!=NULL)
+    {
+        frwd=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=frwd;
+    }
+    return prev;
+}
+int main()
+{
+    node* one=new node();
+    node* two=new node();
+    node* three=new node();
+    
+    one->data=1;
+    one->next=two;
+    
+    two->data=2;
+    two->next=three;
+    
+    three->data=3;
+    three->next=NULL;
+    
+    node* head=one;
+    node* tail=three;
+    
+    cout<<"Current of node : ";
+    print(head);
+    
+    cout<<endl<<"Reverse of node : ";
+    reverse(head);
+    print(head);
+    
+    cout<<"Middle element : ";
+    middle(head);
+    print(head);
